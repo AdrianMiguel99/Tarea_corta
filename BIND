@@ -1,0 +1,19 @@
+/**
+  * Bind method
+  *    use "bind" Unix system call (man 3 bind) (server mode)
+  *
+  * @param      int port: bind a unamed socket to a port defined in sockaddr structure
+  *
+  *  Links the calling process to a service at port
+  *
+ **/
+int VSocket::Bind( int port ) {
+   // https://stackoverflow.com/questions/61409655/how-to-bind-address-in-socket-programming-in-c-c
+   struct sockaddr_in address;
+   address.sin_family = AF_INET; 
+   address.sin_addr.s_addr = INADDR_ANY; 
+   address.sin_port = htons( port ); 
+   int st = ::bind(this->idSocket, (struct sockaddr *)&address, sizeof(address));
+
+   return st;
+}
